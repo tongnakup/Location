@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>ปริ้นต์ป้าย Location</title>
+    <title>อัปโหลดไฟล์ Excel เพื่อปริ้นต์ป้าย</title>
     <style>
         body {
             font-family: 'Sarabun', sans-serif;
@@ -19,31 +19,14 @@
             padding: 40px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
             text-align: center;
         }
 
-        .form-group {
-            margin-bottom: 20px;
+        h1 {
+            margin-top: 0;
         }
 
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        input[type="text"],
-        input[type="number"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        .print-button {
+        .upload-button {
             width: 100%;
             padding: 12px;
             font-size: 16px;
@@ -52,6 +35,22 @@
             color: white;
             border: none;
             border-radius: 4px;
+            margin-top: 20px;
+        }
+
+        input[type="file"] {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .instructions {
+            color: #666;
+            font-size: 14px;
+            text-align: left;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -59,17 +58,22 @@
 <body>
 
     <div class="container">
-        <h1>สร้างป้าย Location</h1>
-        <form action="print.php" method="post" target="_blank">
-            <div class="form-group">
-                <label for="location_code">Location Code (สำหรับ QR Code):</label>
-                <input type="text" id="location_code" name="location_code" value="A19-08-A1" required>
+        <h1>ปริ้นต์ป้าย Location</h1>
+
+        <form action="upload.php" method="post" enctype="multipart/form-data">
+            <label for="excel_file">เลือกไฟล์ Excel (.xlsx):</label><br><br>
+            <input type="file" name="excel_file" id="excel_file" accept=".xlsx, .xls" required>
+
+            <div class="instructions">
+                <strong>คำแนะนำ:</strong>
+                <ul>
+                    <li>ไฟล์ต้องเป็น .xlsx หรือ .xls</li>
+                    <li>ข้อมูล Location Code ต้องอยู่ในคอลัมน์แรก (A)</li>
+                    <li>โปรแกรมจะเริ่มอ่านข้อมูลตั้งแต่แถวที่ 2 เป็นต้นไป</li>
+                </ul>
             </div>
-            <div class="form-group">
-                <label for="quantity">จำนวนที่ต้องการปริ้นต์:</label>
-                <input type="number" id="quantity" name="quantity" value="5" min="1" required>
-            </div>
-            <button type="submit" class="print-button">สร้าง PDF</button>
+
+            <button type="submit" class="upload-button">อัปโหลดและสร้าง PDF</button>
         </form>
     </div>
 
